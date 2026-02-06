@@ -1,63 +1,22 @@
 import { motion } from 'framer-motion';
 import { Heart, Smile, Star, Coffee, Music, Sun } from 'lucide-react';
 
-function LoveLetters() {
-  const reasons = [
-    {
-      icon: <Heart size={30} />,
-      title: "Your Beautiful Smile",
-      text: "Every time you smile, my whole world lights up. It's the most beautiful thing I've ever seen.",
-      color: "#ff6b9d"
-    },
-    {
-      icon: <Smile size={30} />,
-      title: "Your Laughter",
-      text: "Your laugh is my favorite sound. It's infectious, genuine, and makes every moment better.",
-      color: "#c44569"
-    },
-    {
-      icon: <Star size={30} />,
-      title: "Your Kindness",
-      text: "The way you care for everyone around you shows the beautiful soul you have. You inspire me every day.",
-      color: "#f97f51"
-    },
-    {
-      icon: <Coffee size={30} />,
-      title: "Morning Conversations",
-      text: "Waking up to your messages and hearing your voice is the perfect start to any day.",
-      color: "#ff4757"
-    },
-    {
-      icon: <Music size={30} />,
-      title: "Dancing Together",
-      text: "Whether it's a slow dance or silly moves, being in your arms feels like home.",
-      color: "#ff6348"
-    },
-    {
-      icon: <Sun size={30} />,
-      title: "Your Presence",
-      text: "You make everything better just by being there. You're my sunshine on cloudy days.",
-      color: "#ffa502"
-    },
-    {
-      icon: <Heart size={30} />,
-      title: "The Little Things",
-      text: "The way you hold my hand, your random hugs, your sweet texts - every little thing you do makes me fall deeper.",
-      color: "#ff6b9d"
-    },
-    {
-      icon: <Star size={30} />,
-      title: "Your Dreams",
-      text: "I love how passionate you are about your dreams. I'm so proud to be by your side as you chase them.",
-      color: "#c44569"
-    },
-    {
-      icon: <Heart size={30} />,
-      title: "Simply You",
-      text: "You are perfect just the way you are. I love every quirk, every habit, everything that makes you YOU.",
-      color: "#f97f51"
-    }
-  ];
+const REASON_ICONS = [<Heart size={30} />, <Smile size={30} />, <Star size={30} />, <Coffee size={30} />, <Music size={30} />, <Sun size={30} />, <Heart size={30} />, <Star size={30} />, <Heart size={30} />];
+const DEFAULT_REASONS = [
+  { title: "Your Beautiful Smile", text: "Every time you smile, my whole world lights up.", color: "#ff6b9d" },
+  { title: "Your Laughter", text: "Your laugh is my favorite sound.", color: "#c44569" },
+  { title: "Your Kindness", text: "The way you care for everyone around you shows the beautiful soul you have.", color: "#f97f51" },
+  { title: "Morning Conversations", text: "Waking up to your messages and hearing your voice is the perfect start to any day.", color: "#ff4757" },
+  { title: "Dancing Together", text: "Being in your arms feels like home.", color: "#ff6348" },
+  { title: "Your Presence", text: "You make everything better just by being there.", color: "#ffa502" },
+  { title: "The Little Things", text: "Every little thing you do makes me fall deeper.", color: "#ff6b9d" },
+  { title: "Your Dreams", text: "I'm so proud to be by your side as you chase them.", color: "#c44569" },
+  { title: "Simply You", text: "I love everything that makes you YOU.", color: "#f97f51" }
+];
+
+function LoveLetters({ reasons: reasonsProp = [] }) {
+  const rawReasons = (reasonsProp && reasonsProp.length > 0) ? reasonsProp : DEFAULT_REASONS;
+  const reasons = rawReasons.map((r, i) => ({ ...r, icon: REASON_ICONS[i] ?? <Heart size={30} /> }));
 
   return (
     <div className="love-letters-page">

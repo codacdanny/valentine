@@ -136,6 +136,15 @@ body {
   color: var(--primary);
 }
 
+.navigation button.nav-item {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+}
+
 .nav-indicator {
   position: absolute;
   bottom: -1rem;

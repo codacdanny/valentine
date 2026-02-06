@@ -8,50 +8,20 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-function Gallery() {
+const PLACEHOLDER_PHOTOS = [
+  { id: 1, url: '/photos/photo1.jpg', caption: 'Our first date - unforgettable', date: 'August 2024' },
+  { id: 2, url: '/photos/photo2.jpg', caption: 'That smile that melts my heart', date: 'September 2024' },
+  { id: 3, url: '/photos/photo3.jpg', caption: 'Adventures together', date: 'October 2024' },
+  { id: 4, url: '/photos/photo4.jpg', caption: 'Just us being us', date: 'November 2024' },
+  { id: 5, url: '/photos/photo5.jpg', caption: 'Making memories', date: 'December 2024' },
+  { id: 6, url: '/photos/photo6.jpg', caption: 'Forever my favorite', date: 'January 2026' }
+];
+
+function Gallery({ photos: photosProp = [] }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
 
-  // Placeholder photos - you'll replace these with your actual photos
-  const photos = [
-    {
-      id: 1,
-      url: '/photos/photo1.jpg',
-      caption: 'Our first date - unforgettable',
-      date: 'August 2024'
-    },
-    {
-      id: 2,
-      url: '/photos/photo2.jpg',
-      caption: 'That smile that melts my heart',
-      date: 'September 2024'
-    },
-    {
-      id: 3,
-      url: '/photos/photo3.jpg',
-      caption: 'Adventures together',
-      date: 'October 2024'
-    },
-    {
-      id: 4,
-      url: '/photos/photo4.jpg',
-      caption: 'Just us being us',
-      date: 'November 2024'
-    },
-    {
-      id: 5,
-      url: '/photos/photo5.jpg',
-      caption: 'Making memories',
-      date: 'December 2024'
-    },
-    {
-      id: 6,
-      url: '/photos/photo6.jpg',
-      caption: 'Forever my favorite',
-      date: 'January 2026'
-    }
-  ];
-
+  const photos = (photosProp && photosProp.length > 0) ? photosProp : PLACEHOLDER_PHOTOS;
   const allPhotos = [...photos, ...uploadedPhotos];
 
   const handleFileUpload = (e) => {

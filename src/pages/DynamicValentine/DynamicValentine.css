@@ -1,0 +1,73 @@
+/* ============================================
+   DYNAMIC VALENTINE PAGES
+   ============================================ */
+
+.dynamic-loading,
+.dynamic-error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.loading-spinner {
+  color: #6366f1;
+  animation: spin 1s linear infinite;
+  margin-bottom: 2rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-icon {
+  color: #ef4444;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.dynamic-loading h2,
+.dynamic-error h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.dynamic-loading p,
+.dynamic-error p {
+  color: var(--text-dim);
+  font-size: 1.2rem;
+}
+
+.dynamic-valentine-app {
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .loading-heart,
+  .error-heart {
+    width: 60px;
+    height: 60px;
+  }
+
+  .dynamic-loading h2,
+  .dynamic-error h2 {
+    font-size: 2rem;
+  }
+
+  .dynamic-loading p,
+  .dynamic-error p {
+    font-size: 1rem;
+  }
+}

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
-function Proposal() {
+function Proposal({ onYes }) {
   const navigate = useNavigate();
   const [showProposal, setShowProposal] = useState(false);
   const [hearts, setHearts] = useState([]);
@@ -55,7 +55,7 @@ function Proposal() {
 
         if (timeLeft <= 0) {
           clearInterval(interval);
-          navigate('/celebration');
+          if (onYes) onYes(); else navigate('/celebration');
           return;
         }
 
@@ -72,7 +72,7 @@ function Proposal() {
         });
       }, 250);
     } else {
-      setTimeout(() => navigate('/celebration'), 1000);
+      setTimeout(() => (onYes ? onYes() : navigate('/celebration')), 1000);
     }
   };
 

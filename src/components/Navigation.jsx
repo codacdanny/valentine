@@ -2,19 +2,20 @@ import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Clock, Camera, Heart, Sparkles } from 'lucide-react';
 
-function Navigation() {
+const navItems = [
+  { path: '/', page: 'landing', icon: <Home size={20} />, label: 'Home' },
+  { path: '/our-story', page: 'story', icon: <Clock size={20} />, label: 'Our Story' },
+  { path: '/gallery', page: 'gallery', icon: <Camera size={20} />, label: 'Gallery' },
+  { path: '/love-letters', page: 'letters', icon: <Heart size={20} />, label: 'Love Letters' },
+  { path: '/proposal', page: 'proposal', icon: <Sparkles size={20} />, label: 'The Question' },
+];
+
+function Navigation({ currentPage, onNavClick }) {
   const location = useLocation();
+  const isDynamic = typeof onNavClick === 'function';
 
-  const navItems = [
-    { path: '/', icon: <Home size={20} />, label: 'Home' },
-    { path: '/our-story', icon: <Clock size={20} />, label: 'Our Story' },
-    { path: '/gallery', icon: <Camera size={20} />, label: 'Gallery' },
-    { path: '/love-letters', icon: <Heart size={20} />, label: 'Love Letters' },
-    { path: '/proposal', icon: <Sparkles size={20} />, label: 'The Question' },
-  ];
-
-  // Don't show nav on celebration page
-  if (location.pathname === '/celebration') return null;
+  if (isDynamic && currentPage === 'celebration') return null;
+  if (!isDynamic && location.pathname === '/celebration') return null;
 
   return (
     <motion.nav
@@ -24,12 +25,9 @@ function Navigation() {
       transition={{ duration: 0.5 }}
     >
       <div className="nav-content">
-        {navItems.map((item, index) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-          >
+        {navItems.map((item, index) => {
+          const isActive = isDynamic ? currentPage === item.page : location.pathname === item.path;
+          const content = (
             <motion.div
               className="nav-item-content"
               whileHover={{ scale: 1.1, y: -5 }}
@@ -41,16 +39,41 @@ function Navigation() {
               <div className="nav-icon">{item.icon}</div>
               <span className="nav-label">{item.label}</span>
             </motion.div>
-            
-            {location.pathname === item.path && (
-              <motion.div
-                className="nav-indicator"
-                layoutId="nav-indicator"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
-          </Link>
-        ))}
+          );
+
+          return isDynamic ? (
+            <button
+              key={item.page}
+              type="button"
+              className={`nav-item ${isActive ? 'active' : ''}`}
+              onClick={() => onNavClick(item.page)}
+            >
+              {content}
+              {isActive && (
+                <motion.div
+                  className="nav-indicator"
+                  layoutId="nav-indicator"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </button>
+          ) : (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`nav-item ${isActive ? 'active' : ''}`}
+            >
+              {content}
+              {isActive && (
+                <motion.div
+                  className="nav-indicator"
+                  layoutId="nav-indicator"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </motion.nav>
   );

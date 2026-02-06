@@ -2,15 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
-function MusicPlayer() {
+function MusicPlayer({ musicUrl }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // You can add your romantic song URL here
-    audioRef.current = new Audio('/music/romantic-song.mp3');
+    // Use provided music URL or fallback to default
+    const audioSrc = musicUrl || '/music/romantic-song.mp3';
+    audioRef.current = new Audio(audioSrc);
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
 
@@ -19,7 +20,7 @@ function MusicPlayer() {
         audioRef.current.pause();
       }
     };
-  }, []);
+  }, [musicUrl]);
 
   const togglePlay = () => {
     if (audioRef.current) {

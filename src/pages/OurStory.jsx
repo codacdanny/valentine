@@ -2,48 +2,27 @@ import { motion } from 'framer-motion';
 import { Calendar, Heart, Star, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-function OurStory() {
+const ICONS = [<Heart size={30} />, <Star size={30} />, <Sparkles size={30} />, <Calendar size={30} />];
+const DEFAULT_MILESTONES = [
+  { title: "The Beginning", date: "August 1, 2025", description: "The day we made it official.", color: "#ff6b9d" },
+  { title: "First Month", date: "September 2025", description: "Every moment with you felt like a dream.", color: "#c44569" },
+  { title: "Growing Stronger", date: "October - November 2025", description: "Learning, laughing, and loving every second together.", color: "#f97f51" },
+  { title: "6 Months Strong", date: "February 2026", description: "And I fall for you more deeply every single day.", color: "#ff4757" }
+];
+
+function OurStory({ startDate: startDateProp, milestones: milestonesProp }) {
   const [daysTogether, setDaysTogether] = useState(0);
 
+  const rawMilestones = (milestonesProp && milestonesProp.length > 0) ? milestonesProp : DEFAULT_MILESTONES;
+  const milestones = rawMilestones.map((m, i) => ({ ...m, icon: ICONS[i] ?? <Heart size={30} /> }));
+
   useEffect(() => {
-    // Calculate days together (6 months from today)
-    const startDate = new Date('2025-08-01'); // Adjust to your actual start date
+    const startDate = startDateProp ? new Date(startDateProp) : new Date('2025-08-01');
     const today = new Date();
     const diffTime = Math.abs(today - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setDaysTogether(diffDays);
-  }, []);
-
-  const milestones = [
-    {
-      icon: <Heart size={30} />,
-      title: "The Beginning",
-      date: "August 1, 2025",
-      description: "The day we made it official. The day my life changed forever.",
-      color: "#ff6b9d"
-    },
-    {
-      icon: <Star size={30} />,
-      title: "First Month",
-      date: "September 2025",
-      description: "Every moment with you felt like a dream. Still does.",
-      color: "#c44569"
-    },
-    {
-      icon: <Sparkles size={30} />,
-      title: "Growing Stronger",
-      date: "October - November 2025",
-      description: "Learning, laughing, and loving every second together.",
-      color: "#f97f51"
-    },
-    {
-      icon: <Calendar size={30} />,
-      title: "6 Months Strong",
-      date: "February 2026",
-      description: "And I fall for you more deeply every single day.",
-      color: "#ff4757"
-    }
-  ];
+  }, [startDateProp]);
 
   return (
     <div className="our-story-page">
