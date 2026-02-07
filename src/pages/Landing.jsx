@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { Heart, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 function Landing({ onNavigate }) {
-  const navigate = useNavigate();
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -69,7 +67,7 @@ function Landing({ onNavigate }) {
               boxShadow: "0 0 30px rgba(255, 105, 180, 0.6)"
             }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => (onNavigate ? onNavigate() : navigate('/our-story'))}
+            onClick={() => onNavigate?.()}
           >
             <Sparkles className="button-icon" size={20} />
             Begin Our Journey

@@ -49,28 +49,10 @@ function Gallery({ photos: photosProp = [] }) {
         animate={{ opacity: 1, y: 0 }}
       >
         <Camera className="gallery-icon" size={40} />
-        <h1 className="gallery-title">Our Precious Moments</h1>
+        <h1 className="gallery-title">Our Beautiful Moments</h1>
         <p className="gallery-subtitle">Every picture tells our story</p>
       </motion.div>
 
-      <motion.div
-        className="upload-section"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        <label className="upload-button">
-          <Upload size={20} />
-          <span>Add More Memories</span>
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleFileUpload}
-            style={{ display: 'none' }}
-          />
-        </label>
-      </motion.div>
 
       <motion.div
         className="carousel-container"
@@ -84,9 +66,9 @@ function Gallery({ photos: photosProp = [] }) {
           centeredSlides={true}
           slidesPerView={'auto'}
           coverflowEffect={{
-            rotate: 50,
+            rotate: 15,
             stretch: 0,
-            depth: 100,
+            depth: 80,
             modifier: 1,
             slideShadows: true,
           }}

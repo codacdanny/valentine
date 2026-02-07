@@ -109,7 +109,7 @@ function LoveLetters({ reasons: reasonsProp = [] }) {
           Every day with you is a gift, and I can't wait to create 
           more beautiful memories together. You mean the world to me.
         </p>
-        <p className="message-signature">— Forever Yours</p>
+        <p className="message-signature">— Daniel</p>
       </motion.div>
     </div>
   );

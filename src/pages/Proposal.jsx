@@ -1,10 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
 function Proposal({ onYes }) {
-  const navigate = useNavigate();
   const [showProposal, setShowProposal] = useState(false);
   const [hearts, setHearts] = useState([]);
   const [noButtonPosition, setNoButtonPosition] = useState({ x: 0, y: 0 });
@@ -21,7 +19,7 @@ function Proposal({ onYes }) {
     const timer = setTimeout(() => setShowProposal(true), 1000);
 
     return () => {
-      document.body.removeChild(script);
+      if (script.parentNode) script.parentNode.removeChild(script);
       clearTimeout(timer);
     };
   }, []);
@@ -55,7 +53,7 @@ function Proposal({ onYes }) {
 
         if (timeLeft <= 0) {
           clearInterval(interval);
-          if (onYes) onYes(); else navigate('/celebration');
+          if (onYes) onYes();
           return;
         }
 
@@ -72,7 +70,7 @@ function Proposal({ onYes }) {
         });
       }, 250);
     } else {
-      setTimeout(() => (onYes ? onYes() : navigate('/celebration')), 1000);
+      setTimeout(() => onYes?.(), 1000);
     }
   };
 

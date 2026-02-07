@@ -2,25 +2,33 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Music, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
-function MusicPlayer({ musicUrl }) {
+function MusicPlayer({ musicUrl, startPlaying }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showPlayer, setShowPlayer] = useState(false);
   const audioRef = useRef(null);
+  const hasStartedRef = useRef(false);
 
   useEffect(() => {
-    // Use provided music URL or fallback to default
-    const audioSrc = musicUrl || '/music/romantic-song.mp3';
-    audioRef.current = new Audio(audioSrc);
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.5;
+    if (!musicUrl) return;
+    const audio = new Audio(musicUrl);
+    audioRef.current = audio;
+    audio.loop = true;
+    audio.volume = 0.5;
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      audio.pause();
     };
   }, [musicUrl]);
+
+  // Start playing when user clicks "Begin Our Journey" (after a user gesture, so browsers allow it)
+  useEffect(() => {
+    if (!startPlaying || hasStartedRef.current || !audioRef.current) return;
+    hasStartedRef.current = true;
+    audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+  }, [startPlaying]);
+
+  if (!musicUrl) return null;
 
   const togglePlay = () => {
     if (audioRef.current) {
